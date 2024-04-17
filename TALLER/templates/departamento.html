@@ -1,0 +1,75 @@
+{% extends 'layout.html'  %}
+
+{% block body %}
+
+<div class="row">
+    <div class="col-md-5">
+            {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endfor %}
+        {% endif%}
+        {% endwith %}
+
+        <div class="card card-body">
+            <form action="/add_departamento" method="POST">
+                <div class="form-group">
+                    <input type="text" name="descripcion" placeholder="descripcion" class="form-control">
+                </div>
+                <div class="form-group">
+                    <input type="text" name="nrohabitacion" placeholder="nrohabitacion" class="form-control">
+                </div>
+                <div class="form-group">
+                    <input type="text" name="ubicacion" placeholder="ubicacion" class="form-control">
+                </div>
+                <div class="form-group">
+                    <input type="text" name="piso" placeholder="piso" class="form-control">
+                </div>
+                <div class="d-grid gap-2">
+                    <button type="submit" class="btn btn-lg btn-primary">
+                        Guardar
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="col-md-7">
+        <table class="table table-striped table-bordered bg-white table-sm">
+            <thead>
+                <tr>
+                    <td>descripcion</td>
+                    <td>n°habitacion</td>
+                    <td>ubicacion</td>
+                    <td>piso</td>
+                    <td>Opciones</td>
+                </tr>
+            </thead>
+            <tbody>
+                {% for departamento in departamentos %}
+                <tr>
+                    <td>{{ departamento.1 }}</td>
+                    <td>{{ departamento.2 }}</td>
+                    <td>{{ departamento.3 }}</td>
+                    <td>{{ departamento.4 }}</td>
+                    <td>
+                        <a href="/editdepartamento/{{departamento.0}}" class="btn btn-secondary">Editar</a>
+                        <a href="/deletedepartamento/{{departamento.0}}" class="btn btn-danger btn-delete">Eliminar</a>
+                    </td>
+                </tr>
+                {% endfor %}        
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+
+
+
+
+
+{% endblock %}
